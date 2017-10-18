@@ -24,15 +24,15 @@ $(function() {
 
     it('have non-empty URLs', function() {
       allFeeds.forEach(function(feed){
-        expect(feed['url']).toBeDefined();
-        expect(feed['url']).not.toBe(' ');
+        expect(feed.url).toBeDefined();
+        expect(feed.url).not.toBe(' ');
       });
     });
 
     it('have non-empty name', function() {
       allFeeds.forEach(function(feed){
-        expect(feed['name']).toBeDefined();
-        expect(feed['name']).not.toBe(' ');
+        expect(feed.name).toBeDefined();
+        expect(feed.name).not.toBe(' ');
       });
     });
   });
@@ -71,7 +71,7 @@ $(function() {
     beforeEach(function(done) {
       loadFeed(0, function(){
         done();
-      })
+      });
     });
 
     it('ensures at least a single .entry element within the .feed container after loadFeed() is called', function(done){
