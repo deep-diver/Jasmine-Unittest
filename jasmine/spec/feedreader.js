@@ -46,18 +46,18 @@ $(function() {
         changes the menu to appear and disappear
   */
   describe('The menu', function(){
-    it('hidden as default', function() {
+    beforeEach(function(){
       expect($('body').hasClass('menu-hidden')).toBe(true);
     });
 
+    it('hidden as default', function() {});
+
     it('changes visibility when the menu icon is clicked', function() {
-      expect($('body').hasClass('menu-hidden')).toBe(true);
+      $('.menu-icon-link').click();
+      expect($('body').hasClass('menu-hidden')).toBeFalsy();
 
       $('.menu-icon-link').click();
-      expect($('body').hasClass('menu-hidden')).toBe(false);
-
-      $('.menu-icon-link').click();
-      expect($('body').hasClass('menu-hidden')).toBe(true);
+      expect($('body').hasClass('menu-hidden')).toBeTruthy();
     });
   });
 
@@ -83,19 +83,22 @@ $(function() {
     - #1('ensures when a new feed is loaded by the loadFeed() that the content actually changes')
       : make sure that contents are replaced with selected feed
   */
-  describe('New Feed Selection #1', function() {
+  describe('New Feed Selection', function() {
+    let beforeContents;
+    let afterContents;
+
     // loadFeed with id#1, after loadFeed with id#2 is completed.
     beforeEach(function(done) {
-      loadFeed(0, done);
-      loadFeed(1, done);
+      loadFeed(0, function() {
+        beforeContents = $('.feed').html();
+        afterContents = $('.feed').html();
+
+        expect(beforeContents).toBe(afterContents);
+        loadFeed(1, done);
+      });
     });
 
     it('ensures when a new feed is loaded by the loadFeed() that the content actually changes', function(done) {
-      const beforeContents = $('.feed').html();
-      let afterContents = $('.feed').html();
-      expect(beforeContents).toBe(afterContents);
-      done();
-
       afterContents = $('.feed').html();
       expect(beforeContents).not.toBe(afterContents);
       done();
