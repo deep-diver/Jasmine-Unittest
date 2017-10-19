@@ -25,14 +25,14 @@ $(function() {
     it('have non-empty URLs', function() {
       allFeeds.forEach(function(feed){
         expect(feed.url).toBeDefined();
-        expect(feed.url).not.toBe(' ');
+        expect(feed.url.length).not.toBe(0);
       });
     });
 
     it('have non-empty name', function() {
       allFeeds.forEach(function(feed){
         expect(feed.name).toBeDefined();
-        expect(feed.name).not.toBe(' ');
+        expect(feed.name.length).not.toBe(0);
       });
     });
   });
@@ -53,10 +53,10 @@ $(function() {
     it('changes visibility when the menu icon is clicked', function() {
       expect($('body').hasClass('menu-hidden')).toBe(true);
 
-      $('.menu-icon-link').trigger('click');
+      $('.menu-icon-link').click();
       expect($('body').hasClass('menu-hidden')).toBe(false);
 
-      $('.menu-icon-link').trigger('click');
+      $('.menu-icon-link').click();
       expect($('body').hasClass('menu-hidden')).toBe(true);
     });
   });
@@ -69,9 +69,7 @@ $(function() {
   */
   describe('Initial Entries', function(){
     beforeEach(function(done) {
-      loadFeed(0, function(){
-        done();
-      });
+      loadFeed(0, done);
     });
 
     it('ensures at least a single .entry element within the .feed container after loadFeed() is called', function(done){
@@ -84,36 +82,22 @@ $(function() {
     Tests on New Feed Selection
     - #1('ensures when a new feed is loaded by the loadFeed() that the content actually changes')
       : make sure that contents are replaced with selected feed
-        after ajax fetch.
-    - #2('ensures when a new feed is loaded by the loadFeed() the title at the top equals from the menu')
-      : make sure that the title at the top has the same value as in the feed button
   */
-  describe('New Feed Selection', function() {
-    let beforeContents;
-    let testId;
-
-    // initially, feed-id, 0 is selected
-    // after saving its contents, change the feed-id to 1
-    // then loadFedd on the id, 1.
+  describe('New Feed Selection #1', function() {
+    // loadFeed with id#1, after loadFeed with id#2 is completed.
     beforeEach(function(done) {
-      beforeContents = $('.feed');
-      testId = 1;
-
-      loadFeed(testId, function() {
-        done();
-      });
+      loadFeed(0, done);
+      loadFeed(1, done);
     });
 
     it('ensures when a new feed is loaded by the loadFeed() that the content actually changes', function(done) {
-      const afterContents = $('.feed');
-      expect(beforeContents).not.toBe(afterContents);
+      const beforeContents = $('.feed').html();
+      let afterContents = $('.feed').html();
+      expect(beforeContents).toBe(afterContents);
       done();
-    });
 
-    it('ensures when a new feed is loaded by the loadFeed() the title at the top equals from the menu', function(done) {
-      const menuTitle = $('.feed-list li a')[testId].text;
-      const topTitle = $('.header-title').text();
-      expect(menuTitle).toBe(topTitle);
+      afterContents = $('.feed').html();
+      expect(beforeContents).not.toBe(afterContents);
       done();
     });
   });

@@ -2,9 +2,11 @@
 
 ## Table of Contents
 - Overview
+- Instruction
 - Test cases
 - Jasmine features
 - Dependencies
+- Resources
 
 ## Overview
 - This project is a part of FEWD-ND(Front End Web Developer Nano-degree) 's assignment @Udacity.
@@ -12,6 +14,13 @@
 - Each feed will bring up a list of articles asynchronously.
 - The main purpose of this project is not building feed web-site.
 - The main purpose is using Jasmine on the web site for unit test.
+
+## Instruction
+- All required dependencies have to be located.
+- Open index.html file on a web-browser (preferably Google Chrome).
+- Scroll down to the bottom.
+- You will see all jasmine testing result.
+- or You could click on each test to see the result.
 
 ## Test cases
 - Tests on RSS feeds
@@ -25,7 +34,6 @@
   - #1: make sure ajax function works ok by checking the length of feeds loaded after the ajax.
 - Tests on New Feed Selection
   - #1: make sure that contents are replaced with selected feed after ajax fetch.
-  - #2: make sure that the title at the top has the same value as in the feed button
 
 ## Jasmine features
 - describe
@@ -38,3 +46,11 @@
 - jQuery: http://jquery.com
 - handlebarJs: http://handlebarsjs.com
 - google jsapi: http://google.com/jsapi
+
+## Resources
+- /js 
+  - app running logic including some global variable used in jasmine testing.
+- /jasmine/lib
+  - jasmine library directory
+- /jasmine/spec
+  - test cases' specs are defined w/ jasmine.
